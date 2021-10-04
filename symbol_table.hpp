@@ -22,6 +22,15 @@ class SemSymbol {
 	// each semantic symbol should track
 	// (i.e. the kind of the symbol (either a variable or function)
 	// and functions to get/set those fields
+	public:
+		SemSymbol(std::string  * name, std::string * kind): Name(name), Kind(kind) {}
+		void setName(std::string * name) { Name = name; }
+		void setKind(std::string * kind) { Kind = kind; }
+		std::string * getName() { return Name; }
+		std::string * getKind() { return Kind; }
+	private:
+		std::string * Name;
+		std::string * Kind;
 };
 
 //A single scope. The symbol table is broken down into a 
