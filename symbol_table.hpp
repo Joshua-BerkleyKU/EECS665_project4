@@ -44,9 +44,9 @@ class ScopeTable {
 		ScopeTable() {
 			symbols = new HashMap<std::string, SemSymbol *>();
 		}
-		void insert(std::string id, SemSymbol * symbol) {
+		bool insert(std::string id, SemSymbol * symbol) {
 			std::pair<std::string, SemSymbol *> item(id, symbol);
-			symbols->insert(item);
+			return symbols->insert(item).second;
 		}
 		SemSymbol * lookup(std::string id) {
 			std::unordered_map<std::string, SemSymbol *>::const_iterator item = symbols->find(id);
