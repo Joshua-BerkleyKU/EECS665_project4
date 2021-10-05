@@ -41,11 +41,23 @@ class SemSymbol {
 // a ScopeTable.
 class ScopeTable {
 	public:
-		ScopeTable();
-		//TODO: add functions for looking up symbols
-		// and/or returning information to indicate
-		// that the symbol does not exist within the
-		// current scope.
+		ScopeTable() {
+			symbols = new HashMap<std::string, SemSymbol *>();
+		}
+		void insert(std::string id, SemSymbol * symbol) {
+			std::pair<std::string, SemSymbol *> item(id, symbol);
+			symbols->insert(item);
+		}
+		SemSymbol * lookup(std::string id) {
+			std::unordered_map<std::string, SemSymbol *>::const_iterator item = symbols->find(id);
+			if (item == symbols->end()) {
+				std::string errorMsg = "No item found in hashtable with id " + id;
+				InternalError error(errorMsg.c_str());
+				throw error;
+			} else {
+				return item->second;
+			}
+		}
 	private:
 		HashMap<std::string, SemSymbol *> * symbols;
 };
