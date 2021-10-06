@@ -26,9 +26,8 @@ bool VarDeclNode::nameAnalysis(SymbolTable * symTab){
 
 	if (myType->getType()->compare("void"))
 	{
-		InternalError error("Invalid type in declaration");
-		nameAnalysisOk = false;
-		throw error;
+		std::cerr << "FATAL " << myPos->begin() << ": Invalid type in declaration";
+		return false;
 	}
 
 	SemSymbol * varDeclSymbol = new SemSymbol(myID->getName(), new std::string("var"), myType->getType());
@@ -82,24 +81,33 @@ bool StringTypeNode::nameAnalysis(SymbolTable* symTab) {
 }
 
 bool CallExpNode::nameAnalysis(SymbolTable* symTab) {
-	bool successful = true;
-	successful = myID->nameAnalysis(symTab);
-	if (successful)
+	bool nameAnalysisOk = true;
+	nameAnalysisOk = myID->nameAnalysis(symTab);
+	if (nameAnalysisOk)
 	{
 		for (auto arg : *myArgs )
 		{
-			successful = arg->nameAnalysis(symTab);
-			if (!successful)
+			nameAnalysisOk = arg->nameAnalysis(symTab);
+			if (!nameAnalysisOk)
 			{
 				return false;
 			}
 		}
 	}
-	return successful;
+	return nameAnalysisOk;
 }
 
-bool ExpNode::nameAnalysis(SymbolTable* symTab) {
-
+bool IDNode::nameAnalysis(SymbolTable* symTab) {
+	SemSymbol * existingSymbol = symTab->searchscopes(name);
+	if (existingSymbol != nullptr)
+	{
+		mySymbol = existingSymbol;
+		return true;
+	} 
+	else {
+		std::cerr << "FATAL " << myPos->begin() << ": Undeclared identifier";
+		return false;
+	}
 }
 
 }
