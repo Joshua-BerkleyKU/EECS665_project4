@@ -55,4 +55,34 @@ bool IntTypeNode::nameAnalysis(SymbolTable* symTab){
 	// name analysis has not failed, and add nothing to the symbol table
 	return true;
 }
+
+bool BoolTypeNode::nameAnalysis(SymbolTable* symTab) {
+	return true;
+}
+
+bool VoidTypeNode::nameAnalysis(SymbolTable* symTab) {
+	return true;
+}
+
+bool StringTypeNode::nameAnalysis(SymbolTable* symTab) {
+	return true;
+}
+
+bool CallExpNode::nameAnalysis(SymbolTable* symTab) {
+	bool successful = true;
+	successful = myID->nameAnalysis(symTab);
+	if (successful)
+	{
+		for (auto arg : *myArgs )
+		{
+			successful = arg->nameAnalysis(symTab);
+			if (!successful)
+			{
+				return false;
+			}
+		}
+	}
+	return successful;
+}
+
 }
