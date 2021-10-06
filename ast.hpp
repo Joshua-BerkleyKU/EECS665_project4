@@ -267,6 +267,7 @@ public:
 private:
 	IDNode * myID;
 	std::list<ExpNode *> * myArgs;
+	SemSymbol * mySymbol;
 };
 
 class BinaryExpNode : public ExpNode{
