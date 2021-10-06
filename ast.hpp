@@ -388,7 +388,7 @@ public:
 		this->myExp = expIn;
 	}
 	virtual void unparse(std::ostream& out, int indent) override = 0;
-	bool nameAnalysis(SymbolTable* ) override;
+	bool nameAnalysis(SymbolTable* ) override = 0;
 protected:
 	ExpNode * myExp;
 };
