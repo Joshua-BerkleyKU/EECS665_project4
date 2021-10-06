@@ -51,9 +51,7 @@ class ScopeTable {
 		SemSymbol * lookup(std::string id) {
 			std::unordered_map<std::string, SemSymbol *>::const_iterator item = symbols->find(id);
 			if (item == symbols->end()) {
-				std::string errorMsg = "No item found in hashtable with id " + id;
-				InternalError error(errorMsg.c_str());
-				throw error;
+				return nullptr;
 			} else {
 				return item->second;
 			}
@@ -64,7 +62,27 @@ class ScopeTable {
 
 class SymbolTable{
 	public:
-		SymbolTable();
+		SymbolTable(){
+			scopeTableChain = new std::list<ScopeTable *>();
+		}
+		void insert(ScopeTable * Scope) {
+			scopeTableChain->push_back(Scope);
+		}
+		void remove() {
+			scopeTableChain->pop_back();
+		}
+		SemSymbol * searchscopes(std::string id)
+		{
+			for (std::list<ScopeTable>::reverse_iterator rit = scopeTableChain->rbegin(); rit != scopeTableChain->rend(); ++rit)
+			{
+				SemSymbol * temp = rit->lookup(id);
+				if (temp != nullptr)
+				{
+					return temp;
+				}
+			}
+			return nullptr;
+		}
 		//TODO: add functions to create a new ScopeTable
 		// when a new scope is entered, drop a ScopeTable
 		// when a scope is exited, etc. 
