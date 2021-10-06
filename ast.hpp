@@ -50,6 +50,7 @@ protected:
 public:
 	virtual void unparseNested(std::ostream& out);
 	//virtual void unparse(std::ostream& out, int indent) override = 0;
+	virtual bool nameAnalysis(SymbolTable *) override;
 };
 
 class LValNode : public ExpNode{
