@@ -26,9 +26,8 @@ bool VarDeclNode::nameAnalysis(SymbolTable * symTab){
 
 	if (myType->getType()->compare("void"))
 	{
-		InternalError error("Invalid type in declaration");
+		std::cerr << "Invalid type in declaration";
 		nameAnalysisOk = false;
-		throw error;
 	}
 
 	SemSymbol * varDeclSymbol = new SemSymbol(myID->getName(), new std::string("var"), myType->getType());
