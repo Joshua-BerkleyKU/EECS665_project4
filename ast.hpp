@@ -50,7 +50,6 @@ protected:
 public:
 	virtual void unparseNested(std::ostream& out);
 	//virtual void unparse(std::ostream& out, int indent) override = 0;
-	virtual bool nameAnalysis(SymbolTable *) override;
 };
 
 class LValNode : public ExpNode{
@@ -66,6 +65,7 @@ public:
 	: LValNode(p), name(nameIn), mySymbol(nullptr){}
 	std::string getName(){ return name; }
 	void unparse(std::ostream& out, int indent) override;
+	bool nameAnalysis(SymbolTable *) override;
 	void attachSymbol(SemSymbol * symbolIn);
 	SemSymbol * getSymbol() const { return mySymbol; }
 private:

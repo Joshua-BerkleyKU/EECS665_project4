@@ -4,7 +4,7 @@
 
 namespace cshanty{
 
-//TODO here is a subset of the nodes needed to do nameAnalysis, 
+//TODO here is a subset of the nodes needed to do nameAnalysis,
 // you should add the rest to allow for a complete treatment
 // of any AST
 
@@ -26,8 +26,8 @@ bool VarDeclNode::nameAnalysis(SymbolTable * symTab){
 
 	if (myType->getType()->compare("void"))
 	{
-		std::cerr << "Invalid type in declaration";
-		nameAnalysisOk = false;
+		std::cerr << "FATAL " << myPos->begin() << ": Invalid type in declaration";
+		return false;
 	}
 
 	SemSymbol * varDeclSymbol = new SemSymbol(myID->getName(), new std::string("var"), myType->getType());
@@ -48,7 +48,7 @@ bool FnDeclNode::nameAnalysis(SymbolTable * symTab){
 	{
 		fnType->append("->" + *myRetType->getType());
 	}
-	
+
 	SemSymbol * fnDeclSymbol = new SemSymbol(myID->getName(), new std::string("fn"), fnType);
 	myID->attachSymbol(fnDeclSymbol);
 	nameAnalysisOk = symTab->insertSymbolIntoCurrentScope(fnDeclSymbol);
@@ -57,13 +57,13 @@ bool FnDeclNode::nameAnalysis(SymbolTable * symTab){
 		ScopeTable * fnScope = new ScopeTable();
 		symTab->insert(fnScope);
 	}
-	
+
 	return nameAnalysisOk;
 }
 
 bool IntTypeNode::nameAnalysis(SymbolTable* symTab){
 	// Name analysis may never even recurse down to IntTypeNode,
-	// but if it does, just return true to indicate that 
+	// but if it does, just return true to indicate that
 	// name analysis has not failed, and add nothing to the symbol table
 	return true;
 }
@@ -81,24 +81,33 @@ bool StringTypeNode::nameAnalysis(SymbolTable* symTab) {
 }
 
 bool CallExpNode::nameAnalysis(SymbolTable* symTab) {
-	bool successful = true;
-	successful = myID->nameAnalysis(symTab);
-	if (successful)
+	bool nameAnalysisOk = true;
+	nameAnalysisOk = myID->nameAnalysis(symTab);
+	if (nameAnalysisOk)
 	{
 		for (auto arg : *myArgs )
 		{
-			successful = arg->nameAnalysis(symTab);
-			if (!successful)
+			nameAnalysisOk = arg->nameAnalysis(symTab);
+			if (!nameAnalysisOk)
 			{
 				return false;
 			}
 		}
 	}
-	return successful;
+	return nameAnalysisOk;
 }
 
-bool ExpNode::nameAnalysis(SymbolTable* symTab) {
-
+bool IDNode::nameAnalysis(SymbolTable* symTab) {
+	SemSymbol * existingSymbol = symTab->searchscopes(name);
+	if (existingSymbol != nullptr)
+	{
+		mySymbol = existingSymbol;
+		return true;
+	}
+	else {
+		std::cerr << "FATAL " << myPos->begin() << ": Undeclared identifier";
+		return false;
+	}
 }
 
 }
