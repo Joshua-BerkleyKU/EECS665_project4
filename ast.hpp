@@ -264,6 +264,7 @@ public:
 	: ExpNode(p), myID(id), myArgs(argsIn){ }
 	void unparse(std::ostream& out, int indent) override;
 	void unparseNested(std::ostream& out) override;
+	bool nameAnalysis(SymbolTable *) override;
 private:
 	IDNode * myID;
 	std::list<ExpNode *> * myArgs;
@@ -392,6 +393,7 @@ class VoidTypeNode : public TypeNode{
 public:
 	VoidTypeNode(Position * p) : TypeNode(p, new std::string("void")){}
 	void unparse(std::ostream& out, int indent) override;
+	virtual bool nameAnalysis(SymbolTable *) override;
 };
 
 class IntTypeNode : public TypeNode{
@@ -405,12 +407,14 @@ class BoolTypeNode : public TypeNode{
 public:
 	BoolTypeNode(Position * p): TypeNode(p, new std::string("bool")) { }
 	void unparse(std::ostream& out, int indent) override;
+	virtual bool nameAnalysis(SymbolTable *) override;
 };
 
 class StringTypeNode : public TypeNode{
 public:
 	StringTypeNode(Position * p): TypeNode(p, new std::string("string")) { }
 	void unparse(std::ostream& out, int indent) override;
+	virtual bool nameAnalysis(SymbolTable *) override;
 };
 
 
