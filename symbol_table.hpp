@@ -41,9 +41,7 @@ class SemSymbol {
 // a ScopeTable.
 class ScopeTable {
 	public:
-		ScopeTable() {
-			symbols = new HashMap<std::string, SemSymbol *>();
-		}
+		ScopeTable();
 		void insert(std::string id, SemSymbol * symbol) {
 			std::pair<std::string, SemSymbol *> item(id, symbol);
 			symbols->insert(item);
@@ -62,9 +60,7 @@ class ScopeTable {
 
 class SymbolTable{
 	public:
-		SymbolTable(){
-			scopeTableChain = new std::list<ScopeTable *>();
-		}
+		SymbolTable();
 		void insert(ScopeTable * Scope) {
 			scopeTableChain->push_back(Scope);
 		}
