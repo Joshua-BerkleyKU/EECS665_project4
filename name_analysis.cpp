@@ -31,14 +31,27 @@ bool VarDeclNode::nameAnalysis(SymbolTable * symTab){
 		throw error;
 	}
 
-	SemSymbol * varDeclSymbol = new SemSymbol(myID->getName(), myType->getType());
+	SemSymbol * varDeclSymbol = new SemSymbol(myID->getName(), new std::string("var"), myType->getType());
+	myID->attachSymbol(varDeclSymbol);
 	nameAnalysisOk = symTab->insertSymbolIntoCurrentScope(varDeclSymbol);
 	return nameAnalysisOk;
 }
 
 bool FnDeclNode::nameAnalysis(SymbolTable * symTab){
 	bool nameAnalysisOk = true;
-	SemSymbol * fnDeclSymbol = new SemSymbol(myID->getName(), myRetType->getType());
+	std::string * fnType = new std::string("");
+	std::string comma = "";
+	for (auto formal : *myFormals) {
+		fnType->append(comma + *formal->getTypeNode()->getType());
+		comma = ",";
+	}
+	if (!myRetType->getType()->compare("void"))
+	{
+		fnType->append("->" + *myRetType->getType());
+	}
+	
+	SemSymbol * fnDeclSymbol = new SemSymbol(myID->getName(), new std::string("fn"), fnType);
+	myID->attachSymbol(fnDeclSymbol);
 	nameAnalysisOk = symTab->insertSymbolIntoCurrentScope(fnDeclSymbol);
 	if (nameAnalysisOk)
 	{
@@ -83,6 +96,10 @@ bool CallExpNode::nameAnalysis(SymbolTable* symTab) {
 		}
 	}
 	return successful;
+}
+
+bool ExpNode::nameAnalysis(SymbolTable* symTab) {
+
 }
 
 }
