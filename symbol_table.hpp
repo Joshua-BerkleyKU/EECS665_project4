@@ -23,7 +23,8 @@ class SemSymbol {
 	// (i.e. the kind of the symbol (either a variable or function)
 	// and functions to get/set those fields
 	public:
-		SemSymbol(std::string  * name, std::string * kind): Name(name), Kind(kind) {}
+		SemSymbol(std::string * name, std::string * kind): Name(name), Kind(kind) {}
+		SemSymbol(std::string name, std::string * kind): Name(new std::string(name)), Kind(kind) {}
 		void setName(std::string * name) { Name = name; }
 		void setKind(std::string * kind) { Kind = kind; }
 		std::string * getName() { return Name; }
@@ -41,11 +42,9 @@ class SemSymbol {
 // a ScopeTable.
 class ScopeTable {
 	public:
-		ScopeTable() {
-			symbols = new HashMap<std::string, SemSymbol *>();
-		}
-		bool insert(std::string id, SemSymbol * symbol) {
-			std::pair<std::string, SemSymbol *> item(id, symbol);
+		ScopeTable();
+		bool insert(std::string * id, SemSymbol * symbol) {
+			std::pair<std::string, SemSymbol *> item(*id, symbol);
 			return symbols->insert(item).second;
 		}
 		SemSymbol * lookup(std::string id) {
@@ -70,6 +69,11 @@ class SymbolTable{
 		}
 		void remove() {
 			scopeTableChain->pop_back();
+		}
+		bool insertSymbolIntoCurrentScope(SemSymbol * symbol) {
+			ScopeTable * current = scopeTableChain->back();
+			bool success = current->insert(symbol->getName(), symbol);
+			return success;
 		}
 		SemSymbol * searchscopes(std::string id)
 		{

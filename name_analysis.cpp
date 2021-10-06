@@ -23,22 +23,29 @@ bool ProgramNode::nameAnalysis(SymbolTable * symTab){
 
 bool VarDeclNode::nameAnalysis(SymbolTable * symTab){
 	bool nameAnalysisOk = true;
-	std::cerr << "I'm in VarDeclNode throwing an error."
-		<< " use GDB or this will look like a segfault!" << std::endl;
-	throw new ToDoError("[DELETE ME] I'm a varDecl"
-		" you should add the information from my"	
-		" subtree to the symbolTable as a new"	
-		" entry in the current scope table"
-	);
+
+	if (myType->getType()->compare("void"))
+	{
+		InternalError error("Invalid type in declaration");
+		nameAnalysisOk = false;
+		throw error;
+	}
+
+	SemSymbol * varDeclSymbol = new SemSymbol(myID->getName(), myType->getType());
+	nameAnalysisOk = symTab->insertSymbolIntoCurrentScope(varDeclSymbol);
 	return nameAnalysisOk;
 }
 
 bool FnDeclNode::nameAnalysis(SymbolTable * symTab){
 	bool nameAnalysisOk = true;
-	throw new ToDoError("[DELETE ME] I'm an fnDecl."
-		" you should add and make current a new"	
-		" scope table for my body"
-	);
+	SemSymbol * fnDeclSymbol = new SemSymbol(myID->getName(), myRetType->getType());
+	nameAnalysisOk = symTab->insertSymbolIntoCurrentScope(fnDeclSymbol);
+	if (nameAnalysisOk)
+	{
+		ScopeTable * fnScope = new ScopeTable();
+		symTab->insert(fnScope);
+	}
+	
 	return nameAnalysisOk;
 }
 
