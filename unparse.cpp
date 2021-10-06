@@ -1,5 +1,6 @@
 #include "ast.hpp"
 #include "errors.hpp"
+#include "symbol_table.hpp"
 
 namespace cshanty{
 
@@ -314,6 +315,7 @@ void LValNode::unparseNested(std::ostream& out){
 void IDNode::unparse(std::ostream& out, int indent){
 	doIndent(out, indent);
 	out << name;
+	out << "(" << mySymbol->getType() << ")";
 	//TODO: enhance unparse with symbol information printed
 }
 
