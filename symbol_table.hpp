@@ -80,7 +80,7 @@ class SymbolTable{
 		{
 			for (auto Scopes : *scopeTableChain)
 			{
-				SemSymbol * temp = Scopes->lookup;
+				SemSymbol * temp = Scopes->lookup(id);
 				if (temp != nullptr)
 				{
 					return temp;
