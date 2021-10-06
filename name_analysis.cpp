@@ -60,6 +60,7 @@ bool FnDeclNode::nameAnalysis(SymbolTable * symTab){
 			nameAnalysisOk = stmt->nameAnalysis(symTab);
 			if (!nameAnalysisOk)
 			{
+				symTab->remove();
 				return false;
 			}
 		}
@@ -109,6 +110,10 @@ bool CallStmtNode::nameAnalysis(SymbolTable* symTab) {
 	return myCallExp->nameAnalysis(symTab);
 }
 
+void IDNode::attachSymbol(SemSymbol* sym) {
+	mySymbol = sym;
+}
+
 bool IDNode::nameAnalysis(SymbolTable* symTab) {
 	SemSymbol * existingSymbol = symTab->searchscopes(name);
 	if (existingSymbol != nullptr)
@@ -120,6 +125,29 @@ bool IDNode::nameAnalysis(SymbolTable* symTab) {
 		std::cerr << "FATAL " << myPos->begin() << ": Undeclared identifier";
 		return false;
 	}
+}
+
+bool RecordTypeDeclNode::nameAnalysis(SymbolTable* symTab) {
+	bool nameAnalysisOk = myID->nameAnalysis(symTab);
+	if (nameAnalysisOk)
+	{
+		ScopeTable * recordScope = new ScopeTable();
+		symTab->insert(recordScope);
+		for (auto field : *myFields) {
+			nameAnalysisOk = field->nameAnalysis(symTab);
+			if (!nameAnalysisOk)
+			{
+				symTab->remove();
+				return false;
+			}
+		}
+		symTab->remove();
+	}
+	return false;
+}
+
+bool RecordTypeNode::nameAnalysis(SymbolTable* symTab) {
+	return myID->nameAnalysis(symTab);
 }
 
 bool AssignStmtNode::nameAnalysis(SymbolTable* symTab) {
@@ -174,6 +202,7 @@ bool IfStmtNode::nameAnalysis(SymbolTable* symTab) {
 			nameAnalysisOk = stmt->nameAnalysis(symTab);
 			if (!nameAnalysisOk)
 			{
+				symTab->remove();
 				return false;
 			}
 		}
@@ -193,6 +222,7 @@ bool IfElseStmtNode::nameAnalysis(SymbolTable* symTab) {
 			nameAnalysisOk = stmt->nameAnalysis(symTab);
 			if (!nameAnalysisOk)
 			{
+				symTab->remove();
 				return false;
 			}
 		}
@@ -203,6 +233,7 @@ bool IfElseStmtNode::nameAnalysis(SymbolTable* symTab) {
 			nameAnalysisOk = stmt->nameAnalysis(symTab);
 			if (!nameAnalysisOk)
 			{
+				symTab->remove();
 				return false;
 			}
 		}
@@ -221,6 +252,7 @@ bool WhileStmtNode::nameAnalysis(SymbolTable* symTab) {
 			nameAnalysisOk = stmt->nameAnalysis(symTab);
 			if (!nameAnalysisOk)
 			{
+				symTab->remove();
 				return false;
 			}
 		}
