@@ -5,6 +5,10 @@ int b;
 report a;
 receive b;
 
-a = a + b - a / b * a;
+bool c;
+c = true;
+c = !c;
+
+a = a[b];
 
 }
