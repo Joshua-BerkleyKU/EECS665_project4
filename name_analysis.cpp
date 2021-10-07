@@ -24,6 +24,7 @@ bool ProgramNode::nameAnalysis(SymbolTable * symTab){
 bool VarDeclNode::nameAnalysis(SymbolTable * symTab){
 	bool nameAnalysisOk = true;
 	std::cout << myType->getType();
+	std::cout << myType->getType()->compare("void");
 	if (myType->getType()->compare("void"))
 	{
 		std::cerr << "FATAL " << myPos->begin() << ": Invalid type in declaration\n" << myType->getType();
