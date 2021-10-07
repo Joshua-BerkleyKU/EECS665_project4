@@ -102,7 +102,7 @@ public:
 	RecordTypeNode(Position * p, IDNode * IDin)
 	:TypeNode(p, new std::string("record")), myID(IDin) { }
 	void unparse(std::ostream& out, int indent) override;
-	virtual bool nameAnalysis(SymbolTable * symTab) override;
+	bool nameAnalysis(SymbolTable * symTab) override;
 private:
 	IDNode * myID;
 };
@@ -138,7 +138,7 @@ public:
 	RecordTypeDeclNode(Position *p, IDNode *id, std::list<VarDeclNode*> *body)
 	: DeclNode(p), myID(id), myFields(body){ }
 	void unparse(std::ostream& out, int indent) override;
-	virtual bool nameAnalysis(SymbolTable *) override;
+	bool nameAnalysis(SymbolTable *) override;
 private:
 	IDNode * myID;
 	std::list<VarDeclNode *> * myFields;
@@ -149,7 +149,6 @@ public:
 	FormalDeclNode(Position * p, TypeNode * type, IDNode * id) 
 	: VarDeclNode(p, type, id){ }
 	void unparse(std::ostream& out, int indent) override;
-	virtual bool nameAnalysis(SymbolTable *) override;
 };
 
 class FnDeclNode : public DeclNode{
