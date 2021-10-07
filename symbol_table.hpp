@@ -46,8 +46,8 @@ class SemSymbol {
 class ScopeTable {
 	public:
 		ScopeTable();
-		bool insert(std::string * id, SemSymbol * symbol) {
-			std::pair<std::string, SemSymbol *> item(*id, symbol);
+		bool insert(std::string id, SemSymbol * symbol) {
+			std::pair<std::string, SemSymbol *> item(id, symbol);
 			return symbols->insert(item).second;
 		}
 		SemSymbol * lookup(std::string id) {
