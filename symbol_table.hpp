@@ -28,7 +28,7 @@ class SemSymbol {
 		void setName(std::string * name) { Name = name; }
 		void setKind(std::string * kind) { Kind = kind; }
 		void setType(std::string * type) { Type = type; }
-		std::string * getName() { return Name; }
+		std::string & getName() { return *Name; }
 		std::string * getKind() { return Kind; }
 		std::string * getType() { return Type; }
 	private:
@@ -73,7 +73,7 @@ class SymbolTable{
 		}
 		bool insertSymbolIntoCurrentScope(SemSymbol * symbol) {
 			ScopeTable * current = scopeTableChain->back();
-			bool success = current->insert(*symbol->getName(), symbol);
+			bool success = current->insert(symbol->getName(), symbol);
 			return success;
 		}
 		SemSymbol * searchscopes(std::string id)
