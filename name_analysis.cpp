@@ -58,10 +58,7 @@ bool FnDeclNode::nameAnalysis(SymbolTable * symTab){
 		fnType.append(comma + formal->getTypeNode()->getType());
 		comma = ",";
 	}
-	if (!myRetType->getType().compare("void") == 0)
-	{
-		fnType.append("->" + myRetType->getType());
-	}
+	fnType.append("->" + myRetType->getType());
 
 	SemSymbol * fnDeclSymbol = new SemSymbol(myID->getName(), std::string("fn"), fnType);
 	myID->attachSymbol(fnDeclSymbol);
