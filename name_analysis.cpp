@@ -158,6 +158,7 @@ bool AssignStmtNode::nameAnalysis(SymbolTable* symTab) {
 }
 
 bool AssignExpNode::nameAnalysis(SymbolTable* symTab) {
+	std::cout << "fffffffffffffffffffffffffffffffffffffffff----\n" ;
 	bool nameAnalysisOk = myDst->nameAnalysis(symTab);
 	if (nameAnalysisOk)
 	{
