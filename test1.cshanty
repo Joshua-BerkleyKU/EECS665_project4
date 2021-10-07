@@ -10,6 +10,7 @@ record test {
 
 void function() {
   int a;
+  int a;
   a = 1;
   a++;
 }
