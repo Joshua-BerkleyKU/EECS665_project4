@@ -1,3 +1,5 @@
+void main() {
+
 if (true) {
     int a;
 }
@@ -12,4 +14,6 @@ else {
 
 while (true) {
     int a;
+}
+
 }
