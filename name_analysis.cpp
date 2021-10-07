@@ -137,7 +137,6 @@ bool IDNode::nameAnalysis(SymbolTable* symTab) {
 
 bool RecordTypeDeclNode::nameAnalysis(SymbolTable* symTab) {
 	bool nameAnalysisOk = myID->nameAnalysis(symTab);
-	std::cout << nameAnalysisOk << " pog\n";
 	if (nameAnalysisOk)
 	{
 		ScopeTable * recordScope = new ScopeTable();
