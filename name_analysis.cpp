@@ -31,7 +31,7 @@ bool VarDeclNode::nameAnalysis(SymbolTable * symTab){
 		return false;
 	}
 
-	SemSymbol * varDeclSymbol = new SemSymbol(myID->getName(), new std::string("var"), new std::string("int") /*myType->getType()*/);
+	SemSymbol * varDeclSymbol = new SemSymbol(myID->getName(), new std::string("var"), myType->getType());
 	myID->attachSymbol(varDeclSymbol);
 	nameAnalysisOk = symTab->insertSymbolIntoCurrentScope(varDeclSymbol);
 	return nameAnalysisOk;
@@ -50,7 +50,7 @@ bool FnDeclNode::nameAnalysis(SymbolTable * symTab){
 		fnType->append("->" + myRetType->getType());
 	}
 
-	SemSymbol * fnDeclSymbol = new SemSymbol(myID->getName(), new std::string("fn"), fnType);
+	SemSymbol * fnDeclSymbol = new SemSymbol(myID->getName(), new std::string("fn"), *fnType);
 	myID->attachSymbol(fnDeclSymbol);
 	nameAnalysisOk = symTab->insertSymbolIntoCurrentScope(fnDeclSymbol);
 	if (nameAnalysisOk)
