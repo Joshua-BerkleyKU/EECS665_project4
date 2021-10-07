@@ -23,8 +23,6 @@ bool ProgramNode::nameAnalysis(SymbolTable * symTab){
 
 bool VarDeclNode::nameAnalysis(SymbolTable * symTab){
 	bool nameAnalysisOk = true;
-	std::cout << myType->getType() << "\n";
-	std::cout << myType->getType().compare("void") << "\n";
 	if (myType->getType().compare("void") == 0)
 	{
 		std::cerr << "FATAL " << myPos->begin() << ": Invalid type in declaration\n" << myType->getType();
@@ -32,6 +30,7 @@ bool VarDeclNode::nameAnalysis(SymbolTable * symTab){
 	}
 
 	SemSymbol * varDeclSymbol = new SemSymbol(myID->getName(), new std::string("var"), myType->getType());
+	std::cout << "hi \n";
 	myID->attachSymbol(varDeclSymbol);
 	nameAnalysisOk = symTab->insertSymbolIntoCurrentScope(varDeclSymbol);
 	return nameAnalysisOk;
