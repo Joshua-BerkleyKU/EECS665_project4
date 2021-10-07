@@ -12,5 +12,6 @@ void function() {
   int a;
   a = 1;
   a++;
+  a--;
   function();
 }
