@@ -235,6 +235,7 @@ bool IfStmtNode::nameAnalysis(SymbolTable* symTab) {
 }
 
 bool IfElseStmtNode::nameAnalysis(SymbolTable* symTab) {
+	std::cout << myCond->nameAnalysis(symTab);
 	bool nameAnalysisOk = myCond->nameAnalysis(symTab);
 	if (nameAnalysisOk)
 	{
@@ -244,7 +245,6 @@ bool IfElseStmtNode::nameAnalysis(SymbolTable* symTab) {
 			nameAnalysisOk = stmt->nameAnalysis(symTab);
 			if (!nameAnalysisOk)
 			{
-				std::cerr << "bruh\n";
 				symTab->remove();
 				return false;
 			}
@@ -256,14 +256,13 @@ bool IfElseStmtNode::nameAnalysis(SymbolTable* symTab) {
 			nameAnalysisOk = stmt->nameAnalysis(symTab);
 			if (!nameAnalysisOk)
 			{
-				std::cerr << "bruh2\n";
 				symTab->remove();
 				return false;
 			}
 		}
 		symTab->remove();
 	}
-	std::cerr << "bruh3\n";
+	std::cerr << "bruh\n";
 	return false;
 }
 
@@ -277,7 +276,6 @@ bool WhileStmtNode::nameAnalysis(SymbolTable* symTab) {
 			nameAnalysisOk = stmt->nameAnalysis(symTab);
 			if (!nameAnalysisOk)
 			{
-				std::cerr << "bruh4\n";
 				symTab->remove();
 				return false;
 			}
@@ -285,7 +283,6 @@ bool WhileStmtNode::nameAnalysis(SymbolTable* symTab) {
 		symTab->remove();
 		return true;
 	}
-	std::cerr << "bruh5\n";
 	return false;
 }
 
