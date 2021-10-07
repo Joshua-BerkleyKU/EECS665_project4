@@ -4,5 +4,4 @@ int function(int c, int d) {
   a = 2;
   b = 3;
   a = a + b;
-  return a;
 }
