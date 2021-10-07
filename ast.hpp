@@ -149,7 +149,6 @@ public:
 	FormalDeclNode(Position * p, TypeNode * type, IDNode * id) 
 	: VarDeclNode(p, type, id){ }
 	void unparse(std::ostream& out, int indent) override;
-	virtual bool nameAnalysis(SymbolTable *) override;
 };
 
 class FnDeclNode : public DeclNode{
