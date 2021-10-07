@@ -26,7 +26,7 @@ bool VarDeclNode::nameAnalysis(SymbolTable * symTab){
 
 	if (myType->getType()->compare("void"))
 	{
-		std::cerr << "FATAL " << myPos->begin() << ": Invalid type in declaration\n";
+		std::cerr << "FATAL " << myPos->begin() << ": Invalid type in declaration\n" << myType->getType();
 		return false;
 	}
 
