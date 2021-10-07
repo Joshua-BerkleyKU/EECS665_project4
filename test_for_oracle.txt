@@ -7,7 +7,6 @@ receive b;
 
 bool c;
 c = true;
-c = !c;
 
 a = a[b];
 
