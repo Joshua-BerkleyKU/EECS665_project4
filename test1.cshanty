@@ -8,7 +8,7 @@ record test {
   int test2;
 }
 
-void function() {
+void function(int x) {
   int a;
   a = 1;
   a++;
