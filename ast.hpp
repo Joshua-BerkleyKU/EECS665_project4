@@ -102,7 +102,7 @@ public:
 	RecordTypeNode(Position * p, IDNode * IDin)
 	:TypeNode(p, new std::string("record")), myID(IDin) { }
 	void unparse(std::ostream& out, int indent) override;
-	bool nameAnalysis(SymbolTable * symTab) override;
+	virtual bool nameAnalysis(SymbolTable * symTab) override;
 private:
 	IDNode * myID;
 };
@@ -138,7 +138,7 @@ public:
 	RecordTypeDeclNode(Position *p, IDNode *id, std::list<VarDeclNode*> *body)
 	: DeclNode(p), myID(id), myFields(body){ }
 	void unparse(std::ostream& out, int indent) override;
-	bool nameAnalysis(SymbolTable *) override;
+	virtual bool nameAnalysis(SymbolTable *) override;
 private:
 	IDNode * myID;
 	std::list<VarDeclNode *> * myFields;
@@ -149,6 +149,7 @@ public:
 	FormalDeclNode(Position * p, TypeNode * type, IDNode * id) 
 	: VarDeclNode(p, type, id){ }
 	void unparse(std::ostream& out, int indent) override;
+	virtual bool nameAnalysis(SymbolTable *) override;
 };
 
 class FnDeclNode : public DeclNode{
@@ -410,28 +411,28 @@ public:
 
 class VoidTypeNode : public TypeNode{
 public:
-	VoidTypeNode(Position * p) : TypeNode(p, std::string("void")){}
+	VoidTypeNode(Position * p) : TypeNode(p, new std::string("void")){}
 	void unparse(std::ostream& out, int indent) override;
 	virtual bool nameAnalysis(SymbolTable *) override;
 };
 
 class IntTypeNode : public TypeNode{
 public:
-	IntTypeNode(Position * p): TypeNode(p, std::string("int")){}
+	IntTypeNode(Position * p): TypeNode(p, new std::string("int")){}
 	void unparse(std::ostream& out, int indent) override;
 	virtual bool nameAnalysis(SymbolTable *) override;
 };
 
 class BoolTypeNode : public TypeNode{
 public:
-	BoolTypeNode(Position * p): TypeNode(p, std::string("bool")) { }
+	BoolTypeNode(Position * p): TypeNode(p, new std::string("bool")) { }
 	void unparse(std::ostream& out, int indent) override;
 	virtual bool nameAnalysis(SymbolTable *) override;
 };
 
 class StringTypeNode : public TypeNode{
 public:
-	StringTypeNode(Position * p): TypeNode(p, std::string("string")) { }
+	StringTypeNode(Position * p): TypeNode(p, new std::string("string")) { }
 	void unparse(std::ostream& out, int indent) override;
 	virtual bool nameAnalysis(SymbolTable *) override;
 };
