@@ -24,7 +24,6 @@ class SemSymbol {
 	// and functions to get/set those fields
 	public:
 		SemSymbol(std::string name, std::string kind, std::string type): Name(name), Kind(kind), Type(type) {}
-		//SemSymbol(std::string name, std::string kind, std::string type): Name(std::string(name)), Kind(kind), Type(type) {}
 		void setName(std::string name) { Name = name; }
 		void setKind(std::string kind) { Kind = kind; }
 		void setType(std::string type) { Type = type; }
