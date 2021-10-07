@@ -31,7 +31,13 @@ bool VarDeclNode::nameAnalysis(SymbolTable * symTab){
 		std::cerr << "FATAL " << myPos->begin() << ": Invalid type in declaration\n" << myType->getType();
 		return false;
 	}
-
+	if (symTab->searchscopes(myID->getName()) != nullptr)
+	{
+		std::cerr << "FATAL " << myPos->begin() << ": Multiply declared identifier\n" << myType->getType();
+		return false;
+	}
+	
+	
 	SemSymbol * varDeclSymbol = new SemSymbol(myID->getName(), std::string("var"), myType->getType());
 	myID->attachSymbol(varDeclSymbol);
 	nameAnalysisOk = symTab->insertSymbolIntoCurrentScope(varDeclSymbol);
@@ -130,13 +136,13 @@ bool IDNode::nameAnalysis(SymbolTable* symTab) {
 		return true;
 	}
 	else {
-		std::cerr << "FATAL " << myPos->begin() << ": Undeclared identifier";
+		std::cerr << "FATAL " << myPos->begin() << ": Undeclared identifier\n";
 		return false;
 	}
 }
 
 bool RecordTypeDeclNode::nameAnalysis(SymbolTable* symTab) {
-	bool nameAnalysisOk = myID->nameAnalysis(symTab);
+	bool nameAnalysisOk = true;// myID->nameAnalysis(symTab);
 	if (nameAnalysisOk)
 	{
 		ScopeTable * recordScope = new ScopeTable();
