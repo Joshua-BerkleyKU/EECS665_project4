@@ -23,18 +23,18 @@ class SemSymbol {
 	// (i.e. the kind of the symbol (either a variable or function)
 	// and functions to get/set those fields
 	public:
-		SemSymbol(std::string * name, std::string * kind, std::string * type): Name(name), Kind(kind), Type(type) {}
-		SemSymbol(std::string name, std::string * kind, std::string * type): Name(new std::string(name)), Kind(kind), Type(type) {}
-		void setName(std::string * name) { Name = name; }
-		void setKind(std::string * kind) { Kind = kind; }
-		void setType(std::string * type) { Type = type; }
-		std::string * getName() { return Name; }
-		std::string * getKind() { return Kind; }
-		std::string * getType() { return Type; }
+		SemSymbol(std::string name, std::string kind, std::string type): Name(name), Kind(kind), Type(type) {}
+		//SemSymbol(std::string name, std::string kind, std::string type): Name(std::string(name)), Kind(kind), Type(type) {}
+		void setName(std::string name) { Name = name; }
+		void setKind(std::string kind) { Kind = kind; }
+		void setType(std::string type) { Type = type; }
+		std::string getName() { return Name; }
+		std::string getKind() { return Kind; }
+		std::string getType() { return Type; }
 	private:
-		std::string * Name;
-		std::string * Kind;
-		std::string * Type;
+		std::string Name;
+		std::string Kind;
+		std::string Type;
 };
 
 //A single scope. The symbol table is broken down into a
@@ -46,7 +46,7 @@ class SemSymbol {
 class ScopeTable {
 	public:
 		ScopeTable();
-		bool insert(std::string &id, SemSymbol * symbol) {
+		bool insert(std::string id, SemSymbol * symbol) {
 			std::pair<std::string, SemSymbol *> item(id, symbol);
 			return symbols->insert(item).second;
 		}
