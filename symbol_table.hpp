@@ -47,7 +47,6 @@ class ScopeTable {
 	public:
 		ScopeTable();
 		bool insert(std::string * id, SemSymbol * symbol) {
-			std::cout << id;
 			std::pair<std::string, SemSymbol *> item(*id, symbol);
 			return symbols->insert(item).second;
 		}
