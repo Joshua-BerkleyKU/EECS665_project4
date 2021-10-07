@@ -30,8 +30,8 @@ bool VarDeclNode::nameAnalysis(SymbolTable * symTab){
 	{
 		std::cerr << "FATAL " << myPos->begin() << ": Invalid type in declaration\n";
 		return false;
-	}	
-	
+	}
+
 	SemSymbol * varDeclSymbol = new SemSymbol(myID->getName(), std::string("var"), myType->getType());
 	myID->attachSymbol(varDeclSymbol);
 	nameAnalysisOk = symTab->insertSymbolIntoCurrentScope(varDeclSymbol);
@@ -40,7 +40,7 @@ bool VarDeclNode::nameAnalysis(SymbolTable * symTab){
 		std::cerr << "FATAL " << myPos->begin() << ": Multiply declared identifier\n";
 		return false;
 	}
-	
+
 	return nameAnalysisOk;
 }
 
@@ -49,12 +49,6 @@ bool FnDeclNode::nameAnalysis(SymbolTable * symTab){
 	std::string fnType("");
 	std::string comma = "";
 	for (auto formal : *myFormals) {
-		nameAnalysisOk = formal->nameAnalysis(symTab);
-		if (!nameAnalysisOk)
-		{
-			return false;
-		}
-
 		fnType.append(comma + formal->getTypeNode()->getType());
 		comma = ",";
 	}
@@ -67,6 +61,13 @@ bool FnDeclNode::nameAnalysis(SymbolTable * symTab){
 	{
 		ScopeTable * fnScope = new ScopeTable();
 		symTab->insert(fnScope);
+		for (auto formal : *myFormals) {
+			nameAnalysisOk = formal->nameAnalysis(symTab);
+			if (!nameAnalysisOk)
+			{
+				return false;
+			}
+		}
 		for (auto stmt : *myBody) {
 			nameAnalysisOk = stmt->nameAnalysis(symTab);
 			if (!nameAnalysisOk)
@@ -76,6 +77,7 @@ bool FnDeclNode::nameAnalysis(SymbolTable * symTab){
 			}
 		}
 		symTab->remove();
+		return true;
 	}
 
 	return nameAnalysisOk;
@@ -140,7 +142,7 @@ bool IDNode::nameAnalysis(SymbolTable* symTab) {
 
 bool RecordTypeDeclNode::nameAnalysis(SymbolTable* symTab) {
 	bool nameAnalysisOk;
-	
+
 	SemSymbol * recordSymbol = new SemSymbol(myID->getName(), std::string("record"), std::string("record"));
 	myID->attachSymbol(recordSymbol);
 	nameAnalysisOk = symTab->insertSymbolIntoCurrentScope(recordSymbol);
@@ -148,7 +150,7 @@ bool RecordTypeDeclNode::nameAnalysis(SymbolTable* symTab) {
 	{
 		ScopeTable * recordScope = new ScopeTable();
 		symTab->insert(recordScope);
-		
+
 		for (auto field : *myFields) {
 			nameAnalysisOk = field->nameAnalysis(symTab);
 			if (!nameAnalysisOk)

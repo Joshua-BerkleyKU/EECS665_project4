@@ -13,3 +13,5 @@ void function() {
   a = 1;
   a++;
 }
+
+function();
