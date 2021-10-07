@@ -90,7 +90,7 @@ private:
 
 class TypeNode : public ASTNode{
 public:
-	TypeNode(Position * p, std::string * type) : ASTNode(p), Type(new std::string(*type)) { std::cout << Type; }
+	TypeNode(Position * p, std::string * type) : ASTNode(p), Type(type) { }
 	std::string * getType() { return Type; }
 	void unparse(std::ostream&, int) override = 0;
 private:
