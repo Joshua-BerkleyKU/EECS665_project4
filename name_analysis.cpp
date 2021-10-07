@@ -43,6 +43,12 @@ bool FnDeclNode::nameAnalysis(SymbolTable * symTab){
 	std::string fnType("");
 	std::string comma = "";
 	for (auto formal : *myFormals) {
+		nameAnalysisOk = formal->nameAnalysis(symTab);
+		if (!nameAnalysisOk)
+		{
+			return false;
+		}
+		
 		fnType.append(comma + formal->getTypeNode()->getType());
 		comma = ",";
 	}
