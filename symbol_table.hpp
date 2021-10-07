@@ -78,9 +78,9 @@ class SymbolTable{
 		}
 		SemSymbol * searchscopes(std::string id)
 		{
-			for (std::list<ScopeTable>::reverse_iterator rit = scopeTableChain->rbegin(); rit != scopeTableChain->rend(); ++rit)
+			for (auto Scopes : *scopeTableChain)
 			{
-				SemSymbol * temp = rit->lookup(id);
+				SemSymbol * temp = Scopes->lookup(id);
 				if (temp != nullptr)
 				{
 					return temp;
