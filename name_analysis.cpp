@@ -20,6 +20,7 @@ bool ProgramNode::nameAnalysis(SymbolTable * symTab){
 	for (auto global : *myGlobals){
 		res = global->nameAnalysis(symTab) && res;
 	}
+	symTab->remove();
 	return res;
 }
 
@@ -39,18 +40,18 @@ bool VarDeclNode::nameAnalysis(SymbolTable * symTab){
 
 bool FnDeclNode::nameAnalysis(SymbolTable * symTab){
 	bool nameAnalysisOk = true;
-	std::string * fnType = new std::string("");
+	std::string fnType("");
 	std::string comma = "";
 	for (auto formal : *myFormals) {
-		fnType->append(comma + formal->getTypeNode()->getType());
+		fnType.append(comma + formal->getTypeNode()->getType());
 		comma = ",";
 	}
 	if (!myRetType->getType().compare("void"))
 	{
-		fnType->append("->" + myRetType->getType());
+		fnType.append("->" + myRetType->getType());
 	}
 
-	SemSymbol * fnDeclSymbol = new SemSymbol(myID->getName(), std::string("fn"), *fnType);
+	SemSymbol * fnDeclSymbol = new SemSymbol(myID->getName(), std::string("fn"), fnType);
 	myID->attachSymbol(fnDeclSymbol);
 	nameAnalysisOk = symTab->insertSymbolIntoCurrentScope(fnDeclSymbol);
 	if (nameAnalysisOk)
