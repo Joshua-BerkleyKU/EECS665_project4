@@ -397,7 +397,7 @@ public:
 	NegNode(Position * p, ExpNode * exp)
 	: UnaryExpNode(p, exp){ }
 	void unparse(std::ostream& out, int indent) override;
-	bool nameAnalysis(SymbolTable* ) override { return true; };
+	bool nameAnalysis(SymbolTable* symTab) override { return myExp->nameAnalysis(symTab); };
 };
 
 class NotNode : public UnaryExpNode{
@@ -405,7 +405,7 @@ public:
 	NotNode(Position * p, ExpNode * exp)
 	: UnaryExpNode(p, exp){ }
 	void unparse(std::ostream& out, int indent) override;
-	bool nameAnalysis(SymbolTable* ) override { return true; };
+	bool nameAnalysis(SymbolTable* symTab) override { return myExp->nameAnalysis(symTab); };
 };
 
 class VoidTypeNode : public TypeNode{
