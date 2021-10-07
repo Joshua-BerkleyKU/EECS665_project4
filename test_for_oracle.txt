@@ -1,18 +1,8 @@
 void main() {
 
-if (true) {
-    int a;
-}
-
-if (false) {
-    int a;
-}
-else {
-    int b;
-}
-
-while (true) {
-    int a;
-}
+int a;
+int b;
+report a;
+receive b;
 
 }
