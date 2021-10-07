@@ -90,17 +90,17 @@ private:
 
 class TypeNode : public ASTNode{
 public:
-	TypeNode(Position * p, std::string type) : ASTNode(p), Type(type) { }
-	std::string  getType() { return Type; }
+	TypeNode(Position * p, std::string * type) : ASTNode(p), Type(type) { }
+	std::string * getType() { return Type; }
 	void unparse(std::ostream&, int) override = 0;
 private:
-	std::string Type;
+	std::string * Type;
 };
 
 class RecordTypeNode : public TypeNode{
 public:
 	RecordTypeNode(Position * p, IDNode * IDin)
-	:TypeNode(p, std::string("record")), myID(IDin) { }
+	:TypeNode(p, new std::string("record")), myID(IDin) { }
 	void unparse(std::ostream& out, int indent) override;
 	virtual bool nameAnalysis(SymbolTable * symTab) override;
 private:
@@ -410,28 +410,28 @@ public:
 
 class VoidTypeNode : public TypeNode{
 public:
-	VoidTypeNode(Position * p) : TypeNode(p, std::string("void")){}
+	VoidTypeNode(Position * p) : TypeNode(p, new std::string("void")){}
 	void unparse(std::ostream& out, int indent) override;
 	virtual bool nameAnalysis(SymbolTable *) override;
 };
 
 class IntTypeNode : public TypeNode{
 public:
-	IntTypeNode(Position * p): TypeNode(p, std::string("int")){}
+	IntTypeNode(Position * p): TypeNode(p, new std::string("int")){}
 	void unparse(std::ostream& out, int indent) override;
 	virtual bool nameAnalysis(SymbolTable *) override;
 };
 
 class BoolTypeNode : public TypeNode{
 public:
-	BoolTypeNode(Position * p): TypeNode(p, std::string("bool")) { }
+	BoolTypeNode(Position * p): TypeNode(p, new std::string("bool")) { }
 	void unparse(std::ostream& out, int indent) override;
 	virtual bool nameAnalysis(SymbolTable *) override;
 };
 
 class StringTypeNode : public TypeNode{
 public:
-	StringTypeNode(Position * p): TypeNode(p, std::string("string")) { }
+	StringTypeNode(Position * p): TypeNode(p, new std::string("string")) { }
 	void unparse(std::ostream& out, int indent) override;
 	virtual bool nameAnalysis(SymbolTable *) override;
 };
