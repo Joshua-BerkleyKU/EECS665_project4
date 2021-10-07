@@ -32,7 +32,7 @@ bool VarDeclNode::nameAnalysis(SymbolTable * symTab){
 	}
 
 	SemSymbol * varDeclSymbol = new SemSymbol(myID->getName(), std::string("var"), myType->getType());
-	//std::cout << "hi" << varDeclSymbol->getKind() << " " << varDeclSymbol->getName() << " " << varDeclSymbol->getType() << "\n";
+	std::cout << "hi " << varDeclSymbol->getKind() << " " << varDeclSymbol->getName() << " " << varDeclSymbol->getType() << "\n";
 	myID->attachSymbol(varDeclSymbol);
 	nameAnalysisOk = symTab->insertSymbolIntoCurrentScope(varDeclSymbol);
 	return nameAnalysisOk;
@@ -117,6 +117,7 @@ void IDNode::attachSymbol(SemSymbol* sym) {
 }
 
 bool IDNode::nameAnalysis(SymbolTable* symTab) {
+	std::cout << "--------------------------------------------\n"
 	SemSymbol * existingSymbol = symTab->searchscopes(name);
 	if (existingSymbol != nullptr)
 	{
