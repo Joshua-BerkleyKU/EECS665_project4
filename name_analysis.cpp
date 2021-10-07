@@ -231,6 +231,7 @@ bool IfStmtNode::nameAnalysis(SymbolTable* symTab) {
 		symTab->remove();
 		return true;
 	}
+	std::cerr << "bruh\n";
 	return false;
 }
 
