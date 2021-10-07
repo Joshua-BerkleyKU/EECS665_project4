@@ -91,7 +91,7 @@ private:
 class TypeNode : public ASTNode{
 public:
 	TypeNode(Position * p, std::string type) : ASTNode(p), Type(type) { }
-	std::string * getType() { return Type; }
+	std::string  getType() { return Type; }
 	void unparse(std::ostream&, int) override = 0;
 private:
 	std::string Type;
@@ -100,7 +100,7 @@ private:
 class RecordTypeNode : public TypeNode{
 public:
 	RecordTypeNode(Position * p, IDNode * IDin)
-	:TypeNode(p, new std::string("record")), myID(IDin) { }
+	:TypeNode(p, std::string("record")), myID(IDin) { }
 	void unparse(std::ostream& out, int indent) override;
 	virtual bool nameAnalysis(SymbolTable * symTab) override;
 private:
