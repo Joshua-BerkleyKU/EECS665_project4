@@ -130,7 +130,7 @@ bool IDNode::nameAnalysis(SymbolTable* symTab) {
 		return true;
 	}
 	else {
-		std::cerr << "FATAL " << myPos->begin() << ": Undeclared identifier";
+		std::cerr << "FATAL " << myPos->begin() << ": Undeclared identifier\n";
 		return false;
 	}
 }
@@ -142,6 +142,7 @@ bool RecordTypeDeclNode::nameAnalysis(SymbolTable* symTab) {
 	{
 		ScopeTable * recordScope = new ScopeTable();
 		symTab->insert(recordScope);
+		std::cout << "pog2\n";
 		for (auto field : *myFields) {
 			nameAnalysisOk = field->nameAnalysis(symTab);
 			if (!nameAnalysisOk)
