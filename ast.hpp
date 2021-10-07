@@ -94,7 +94,7 @@ public:
 	std::string * getType() { return Type; }
 	void unparse(std::ostream&, int) override = 0;
 private:
-	std::string Type;
+	std::string * Type;
 };
 
 class RecordTypeNode : public TypeNode{
@@ -410,7 +410,7 @@ public:
 
 class VoidTypeNode : public TypeNode{
 public:
-	VoidTypeNode(Position * p) : TypeNode(p, new std::string("void")){}
+	VoidTypeNode(Position * p) : TypeNode(p, std::string("void")){}
 	void unparse(std::ostream& out, int indent) override;
 	virtual bool nameAnalysis(SymbolTable *) override;
 };
