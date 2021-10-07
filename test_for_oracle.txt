@@ -9,6 +9,6 @@ bool c;
 c = true;
 c = !c;
 
-a = a[b];
+// a = a[b];
 
 }
