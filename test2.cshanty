@@ -1,0 +1,9 @@
+void function(int a) {
+  string test;
+  bool notcool;
+  test = "a hotdog is a sandwich";
+  function();
+  int a;
+  int b;
+  function2(a,b);
+}
