@@ -52,7 +52,7 @@ bool FnDeclNode::nameAnalysis(SymbolTable * symTab){
 		fnType.append(comma + formal->getTypeNode()->getType());
 		comma = ",";
 	}
-	if (!myRetType->getType().compare("void"))
+	if (!myRetType->getType().compare("void") == 0)
 	{
 		fnType.append("->" + myRetType->getType());
 	}
