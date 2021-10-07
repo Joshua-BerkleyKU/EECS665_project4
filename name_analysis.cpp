@@ -24,14 +24,14 @@ bool ProgramNode::nameAnalysis(SymbolTable * symTab){
 bool VarDeclNode::nameAnalysis(SymbolTable * symTab){
 	bool nameAnalysisOk = true;
 	std::cout << myType->getType() << "\n";
-	std::cout << myType->getType()->compare("void") << "\n";
-	if (myType->getType()->compare("void") == 0)
+	std::cout << myType->getType().compare("void") << "\n";
+	if (myType->getType().compare("void") == 0)
 	{
 		std::cerr << "FATAL " << myPos->begin() << ": Invalid type in declaration\n" << myType->getType();
 		return false;
 	}
 
-	SemSymbol * varDeclSymbol = new SemSymbol(myID->getName(), new std::string("var"), myType->getType());
+	SemSymbol * varDeclSymbol = new SemSymbol(myID->getName(), new std::string("var"), new std::string("int") /*myType->getType()*/);
 	myID->attachSymbol(varDeclSymbol);
 	nameAnalysisOk = symTab->insertSymbolIntoCurrentScope(varDeclSymbol);
 	return nameAnalysisOk;
@@ -42,12 +42,12 @@ bool FnDeclNode::nameAnalysis(SymbolTable * symTab){
 	std::string * fnType = new std::string("");
 	std::string comma = "";
 	for (auto formal : *myFormals) {
-		fnType->append(comma + *formal->getTypeNode()->getType());
+		fnType->append(comma + formal->getTypeNode()->getType());
 		comma = ",";
 	}
-	if (!myRetType->getType()->compare("void"))
+	if (!myRetType->getType().compare("void"))
 	{
-		fnType->append("->" + *myRetType->getType());
+		fnType->append("->" + myRetType->getType());
 	}
 
 	SemSymbol * fnDeclSymbol = new SemSymbol(myID->getName(), new std::string("fn"), fnType);
