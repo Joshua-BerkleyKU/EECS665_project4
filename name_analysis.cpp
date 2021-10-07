@@ -117,7 +117,7 @@ void IDNode::attachSymbol(SemSymbol* sym) {
 }
 
 bool IDNode::nameAnalysis(SymbolTable* symTab) {
-	std::cout << "--------------------------------------------\n"
+	std::cout << "--------------------------------------------\n" ;
 	SemSymbol * existingSymbol = symTab->searchscopes(name);
 	if (existingSymbol != nullptr)
 	{
