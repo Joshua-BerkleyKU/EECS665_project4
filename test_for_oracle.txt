@@ -1,14 +1,7 @@
 void main() {
 
-int a;
-int b;
-report a;
-receive b;
-
 bool c;
 c = true;
 c = !c;
-
-a = a[b];
 
 }
