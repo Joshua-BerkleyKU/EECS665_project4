@@ -49,12 +49,6 @@ bool FnDeclNode::nameAnalysis(SymbolTable * symTab){
 	std::string fnType("");
 	std::string comma = "";
 	for (auto formal : *myFormals) {
-		nameAnalysisOk = formal->nameAnalysis(symTab);
-		if (!nameAnalysisOk)
-		{
-			return false;
-		}
-		
 		fnType.append(comma + formal->getTypeNode()->getType());
 		comma = ",";
 	}
@@ -67,6 +61,13 @@ bool FnDeclNode::nameAnalysis(SymbolTable * symTab){
 	{
 		ScopeTable * fnScope = new ScopeTable();
 		symTab->insert(fnScope);
+		for (auto formal : *myFormals) {
+			nameAnalysisOk = formal->nameAnalysis(symTab);
+			if (!nameAnalysisOk)
+			{
+				return false;
+			}
+		}
 		for (auto stmt : *myBody) {
 			nameAnalysisOk = stmt->nameAnalysis(symTab);
 			if (!nameAnalysisOk)
@@ -76,6 +77,7 @@ bool FnDeclNode::nameAnalysis(SymbolTable * symTab){
 			}
 		}
 		symTab->remove();
+		return true;
 	}
 
 	return nameAnalysisOk;
