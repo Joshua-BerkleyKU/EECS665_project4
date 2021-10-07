@@ -261,6 +261,7 @@ bool IfElseStmtNode::nameAnalysis(SymbolTable* symTab) {
 			}
 		}
 		symTab->remove();
+		return true;
 	}
 	return false;
 }

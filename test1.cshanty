@@ -12,6 +12,8 @@ void function() {
   int a;
   a = 1;
   a++;
+  a--;
+  function();
+  string bruh;
+  bruh = "bruh";
 }
-
-function();
