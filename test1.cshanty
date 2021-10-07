@@ -1,4 +1,4 @@
-int function() {
+int function(int c, int d) {
   int a;
   int b;
   a = 2;
