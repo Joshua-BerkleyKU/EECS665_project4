@@ -1,0 +1,15 @@
+void v(int b) {
+    int a;
+    a = 0;
+}
+
+record test {
+  int test;
+  int test2;
+}
+
+void function() {
+  int a;
+  a = 1;
+  a++;
+}

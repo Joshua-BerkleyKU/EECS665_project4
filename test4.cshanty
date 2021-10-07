@@ -1,0 +1,12 @@
+int function() {
+  int a;
+  int b;
+  int c;
+  int final;
+  a = 5;
+  b = 10;
+  c = 15;
+  final = a + b + c;
+  final = a - b + c;
+  final = a * (b / c);
+}
