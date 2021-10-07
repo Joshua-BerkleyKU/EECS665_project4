@@ -23,8 +23,7 @@ bool ProgramNode::nameAnalysis(SymbolTable * symTab){
 
 bool VarDeclNode::nameAnalysis(SymbolTable * symTab){
 	bool nameAnalysisOk = true;
-	std::cout << myType->getType()->compare("void") << '\n';
-	if (myType->getType()->compare("void"))
+	if (myType->getType()->compare("void") == 0)
 	{
 		std::cerr << "FATAL " << myPos->begin() << ": Invalid type in declaration";
 		return false;
@@ -44,7 +43,7 @@ bool FnDeclNode::nameAnalysis(SymbolTable * symTab){
 		fnType->append(comma + *formal->getTypeNode()->getType());
 		comma = ",";
 	}
-	if (!myRetType->getType()->compare("void"))
+	if (!myRetType->getType()->compare("void") == 0)
 	{
 		fnType->append("->" + *myRetType->getType());
 	}
