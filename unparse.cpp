@@ -315,8 +315,9 @@ void LValNode::unparseNested(std::ostream& out){
 void IDNode::unparse(std::ostream& out, int indent){
 	doIndent(out, indent);
 	out << name;
-	out << "(" << mySymbol->getType() << ")";
-	//TODO: enhance unparse with symbol information printed
+	if (mySymbol->getType() != "record") {
+		out << "(" << mySymbol->getType() << ")";
+	}
 }
 
 void IntLitNode::unparse(std::ostream& out, int indent){
