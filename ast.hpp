@@ -410,28 +410,28 @@ public:
 
 class VoidTypeNode : public TypeNode{
 public:
-	VoidTypeNode(Position * p) : TypeNode(p, new std::string("void")){}
+	VoidTypeNode(Position * p) : TypeNode(p, std::string("void")){}
 	void unparse(std::ostream& out, int indent) override;
 	virtual bool nameAnalysis(SymbolTable *) override;
 };
 
 class IntTypeNode : public TypeNode{
 public:
-	IntTypeNode(Position * p): TypeNode(p, new std::string("int")){}
+	IntTypeNode(Position * p): TypeNode(p, std::string("int")){}
 	void unparse(std::ostream& out, int indent) override;
 	virtual bool nameAnalysis(SymbolTable *) override;
 };
 
 class BoolTypeNode : public TypeNode{
 public:
-	BoolTypeNode(Position * p): TypeNode(p, new std::string("bool")) { }
+	BoolTypeNode(Position * p): TypeNode(p, std::string("bool")) { }
 	void unparse(std::ostream& out, int indent) override;
 	virtual bool nameAnalysis(SymbolTable *) override;
 };
 
 class StringTypeNode : public TypeNode{
 public:
-	StringTypeNode(Position * p): TypeNode(p, new std::string("string")) { }
+	StringTypeNode(Position * p): TypeNode(p, std::string("string")) { }
 	void unparse(std::ostream& out, int indent) override;
 	virtual bool nameAnalysis(SymbolTable *) override;
 };
