@@ -14,4 +14,6 @@ void function() {
   a++;
   a--;
   function();
+  string bruh;
+  bruh = "bruh";
 }
