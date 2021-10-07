@@ -1,6 +1,15 @@
-void someFunc(int a) {
-    int b;
-    b = 2;
+if (true) {
+    int a;
 }
 
-someFunc(2);
+
+if (false) {
+    int a;
+}
+else {
+    int b;
+}
+
+while (true) {
+    int a;
+}
